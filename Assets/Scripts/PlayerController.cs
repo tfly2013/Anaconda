@@ -1,41 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
 
-public class PlayerController : NetworkBehaviour {
+public class PlayerController : MonoBehaviour {
 
-    public GameObject cameraPrefab;
-    public float moveSpeed = 5f;
-    public float rotataSpeed = 150f;
+    public int score = 0;
 
-	// Use this for initialization
-	void Start () {
-	    
-	}
+    // Use this for initialization
+    void Start () {
+        transform.position = new Vector3(Random.Range(100, 400), 0, Random.Range(100, 400));
+    }
 	
 	// Update is called once per frame
+	void Update () {
+        GetComponent<MovementController>().move();
+	}
 
-    void Update()
+    public void AddScore(int amount)
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-            
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * rotataSpeed;
-        transform.Rotate(0, x, 0);
-        transform.position += transform.forward * Time.deltaTime * moveSpeed;
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        Debug.Log("Start local player");
-        //transform.position = new Vector3(Random.Range(100, 400), 0, Random.Range(100, 400));
-        transform.FindChild("Snake").GetComponent<MeshRenderer>().material.color = Color.blue;
-
-        Debug.Log("Generating player camera");
-        var camera = (GameObject) GameObject.Instantiate(cameraPrefab, transform.position + new Vector3(0, 30, 0), Quaternion.identity);
-        camera.transform.Rotate(90, 0, 0);
-        camera.GetComponent<CameraController>().player = gameObject;
+        score += amount;
     }
 }
