@@ -13,27 +13,27 @@ public class DiskController : MonoBehaviour {
         var rvalue = Random.value;
         if (rvalue > 0.93)
         {
-            score = 1000;
+            score = 16;
             scale = 1.5f;
         }            
         else if (rvalue > 0.8)
         {
-            score = 500;
+            score = 8;
             scale = 1.3f;
         }            
         else if (rvalue > 0.6)
         {
-            score = 200;
+            score = 4;
             scale = 1.1f;
         }
         else if (rvalue > 0.3)
         {
-            score = 100;
+            score = 2;
             scale = 1;
         }
         else
         {
-            score = 50;
+            score = 1;
             scale = 0.8f;
         }
         transform.localScale = new Vector3(scale, scale, scale);

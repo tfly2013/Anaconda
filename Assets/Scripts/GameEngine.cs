@@ -29,7 +29,8 @@ public class GameEngine : MonoBehaviour {
         AIs = GameObject.Find("AIs").transform;
         for (int i = 0; i < 100; i++)
         {
-            var ai = (GameObject)GameObject.Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0.5f, Random.Range(0, 450)), Random.rotation);
+            var ai = (GameObject)GameObject.Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0, Random.Range(0, 450)), Quaternion.Euler(0, Random.Range(0,360), 0));
+            
             ai.GetComponent<AIController>().name = "AI" + i.ToString();
             ai.transform.parent = AIs;
         }
@@ -46,7 +47,7 @@ public class GameEngine : MonoBehaviour {
 
         if (AIs.childCount < 100)
         {
-            var ai = (GameObject)GameObject.Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0.5f, Random.Range(0, 450)), Random.rotation);
+            var ai = (GameObject)GameObject.Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0, Random.Range(0, 450)), Quaternion.Euler(0, Random.Range(0, 360), 0));
             ai.GetComponent<AIController>().name = "AI" + ai_id.ToString();
             ai_id++;
             ai.transform.parent = AIs;
