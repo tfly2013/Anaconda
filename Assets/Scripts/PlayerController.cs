@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
+    public string name = "Player";
     public int score = 0;
 
     // Use this for initialization
