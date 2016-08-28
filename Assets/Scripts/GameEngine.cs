@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GameEngine : MonoBehaviour {
 
@@ -15,6 +15,8 @@ public class GameEngine : MonoBehaviour {
     private Transform disks;
     private Transform AIs;
     private int ai_id = 50;
+
+    private bool gameRunning;
 
     void Start () {
         playerName = player.GetComponent<PlayerController>().playerName;
@@ -34,26 +36,30 @@ public class GameEngine : MonoBehaviour {
             ai.GetComponent<AIController>().name = "AI" + i.ToString();
             ai.transform.parent = AIs;
         }
-        
+
+        gameRunning = true;
     }
 
 	void Update ()
     {
-        if (disks.childCount < 5000)
+        if (gameRunning)
         {
-            var disk = (GameObject)GameObject.Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0.5f, Random.Range(0, 500)), Quaternion.identity);
-            disk.transform.parent = disks;
-        }
+            if (disks.childCount < 5000)
+            {
+                var disk = (GameObject)GameObject.Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0.5f, Random.Range(0, 500)), Quaternion.identity);
+                disk.transform.parent = disks;
+            }
 
-        if (AIs.childCount < 100)
-        {
-            var ai = (GameObject)GameObject.Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0, Random.Range(0, 450)), Quaternion.Euler(0, Random.Range(0, 360), 0));
-            ai.GetComponent<AIController>().name = "AI" + ai_id.ToString();
-            ai_id++;
-            ai.transform.parent = AIs;
-        }
+            if (AIs.childCount < 100)
+            {
+                var ai = (GameObject)GameObject.Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0, Random.Range(0, 450)), Quaternion.Euler(0, Random.Range(0, 360), 0));
+                ai.GetComponent<AIController>().name = "AI" + ai_id.ToString();
+                ai_id++;
+                ai.transform.parent = AIs;
+            }
 
-        UpdateLeaderBoard();
+            UpdateLeaderBoard();
+        }
     }
 
     private void UpdateLeaderBoard()
@@ -85,7 +91,19 @@ public class GameEngine : MonoBehaviour {
         {
             leaderBoard.GetChild(5).GetChild(0).GetComponent<Text>().text = "   " + playerName;
             leaderBoard.GetChild(5).GetChild(1).GetComponent<Text>().text = playerScore.ToString();
-        }
-        
+        }        
+    }
+
+    public void GameOver()
+    {
+        gameRunning = false;
+        var gameOverPanel = GameObject.Find("Canvas").transform.FindChild("GameOverPanel").gameObject;           
+        gameOverPanel.transform.FindChild("ScoreText").GetComponent<Text>().text = scores[playerName].ToString();
+        gameOverPanel.SetActive(true);
+    }
+
+    public void TryAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

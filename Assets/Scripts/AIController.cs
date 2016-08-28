@@ -11,7 +11,8 @@ public class AIController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         var color = colors[(int)Random.Range(0, colors.Length - 1)];
-        GetComponentInChildren<MeshRenderer>().material.color = color;
+        transform.GetChild(0).GetComponent<MeshRenderer>().material.color = color;
+        transform.GetChild(1).GetComponent<MeshRenderer>().material.color = color;
         score = Random.Range(0, 200);
         UpdateSize();
     }
