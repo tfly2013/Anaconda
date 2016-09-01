@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SnakeController : MonoBehaviour
 {
-
     void OnTriggerEnter(Collider other)
     {
         var isNetwork = false;
@@ -30,7 +29,7 @@ public class SnakeController : MonoBehaviour
                 aic.AddScore(score);
             Destroy(other.gameObject);
         }
-        if (other.gameObject.CompareTag("Body"))
+        if (other.gameObject.CompareTag("Body") && !other.transform.IsChildOf(transform.parent))
         {
             if (isPlayer && !isNetwork)
                 GameObject.Find("GameEngine").GetComponent<GameEngine>().GameOver();

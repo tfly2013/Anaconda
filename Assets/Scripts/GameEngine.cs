@@ -14,7 +14,7 @@ public class GameEngine : MonoBehaviour {
     private Dictionary<string, int> scores = new Dictionary<string, int>();
     private Transform disks;
     private Transform AIs;
-    private int ai_id = 50;
+    private int ai_id = 100;
 
     private bool gameRunning;
 
@@ -24,7 +24,7 @@ public class GameEngine : MonoBehaviour {
         disks = GameObject.Find("Disks").transform;
         for (int i = 0; i < 5000; i++)
         {
-            var disk = (GameObject)GameObject.Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0.5f, Random.Range(0, 500)), Quaternion.identity);
+            var disk = (GameObject)GameObject.Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0, Random.Range(0, 500)), Quaternion.identity);
             disk.transform.parent = disks;
         }
 
@@ -46,7 +46,7 @@ public class GameEngine : MonoBehaviour {
         {
             if (disks.childCount < 5000)
             {
-                var disk = (GameObject)GameObject.Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0.5f, Random.Range(0, 500)), Quaternion.identity);
+                var disk = (GameObject)GameObject.Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0, Random.Range(0, 500)), Quaternion.identity);
                 disk.transform.parent = disks;
             }
 
@@ -56,8 +56,7 @@ public class GameEngine : MonoBehaviour {
                 ai.GetComponent<AIController>().name = "AI" + ai_id.ToString();
                 ai_id++;
                 ai.transform.parent = AIs;
-            }
-
+            }            
             UpdateLeaderBoard();
         }
     }

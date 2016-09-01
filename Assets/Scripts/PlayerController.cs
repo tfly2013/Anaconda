@@ -4,11 +4,18 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
     public string playerName = "Player";
+    public int length = 10;
     public int score = 0;
+    public GameObject snakeBodyPrefeb;
 
     // Use this for initialization
     void Start () {
         transform.position = new Vector3(Random.Range(100, 400), 0, Random.Range(100, 400));
+        for (int i = 0; i < length; i++)
+        {
+            var body = (GameObject)Instantiate(snakeBodyPrefeb, transform, false);
+            body.transform.localPosition = new Vector3(0, 0, -i - 1);
+        }            
     }
 	
 	// Update is called once per frame
@@ -24,10 +31,12 @@ public class PlayerController : MonoBehaviour {
 
     private void UpdateSize()
     {
-        var x = Mathf.Log(score, 50);
-        var z = Mathf.Log10(score);
-        x = x < 1 ? 1 : x;
-        z = z < 1 ? 1 : z;
-        transform.localScale = new Vector3(x, 1, z);
+        if (score / 10 > (length - 9))
+        {
+            var lastBodyPosistion = transform.GetChild(transform.childCount - 1).position;
+            length++;
+            var body = (GameObject)Instantiate(snakeBodyPrefeb, transform, false);
+            body.transform.position = lastBodyPosistion;
+        }
     }
 }
