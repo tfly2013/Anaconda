@@ -5,6 +5,8 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class GameEngine : MonoBehaviour {
+    public const int AI_NUM = 80;
+    public const int DISK_NUM = 5000;
 
     public GameObject player;
     public GameObject diskPrefab;
@@ -14,7 +16,7 @@ public class GameEngine : MonoBehaviour {
     private Dictionary<string, int> scores = new Dictionary<string, int>();
     private Transform disks;
     private Transform AIs;
-    private int ai_id = 100;
+    private int ai_id = AI_NUM;
 
     private bool gameRunning;
 
@@ -22,14 +24,14 @@ public class GameEngine : MonoBehaviour {
         playerName = player.GetComponent<PlayerController>().playerName;
 
         disks = GameObject.Find("Disks").transform;
-        for (int i = 0; i < 5000; i++)
+        for (int i = 0; i < DISK_NUM; i++)
         {
             var disk = (GameObject)GameObject.Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0, Random.Range(0, 500)), Quaternion.identity);
             disk.transform.parent = disks;
         }
 
         AIs = GameObject.Find("AIs").transform;
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < AI_NUM; i++)
         {
             var ai = (GameObject)GameObject.Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0, Random.Range(0, 450)), Quaternion.Euler(0, Random.Range(0,360), 0));
             
@@ -44,13 +46,13 @@ public class GameEngine : MonoBehaviour {
     {
         if (gameRunning)
         {
-            if (disks.childCount < 5000)
+            if (disks.childCount < DISK_NUM)
             {
                 var disk = (GameObject)GameObject.Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0, Random.Range(0, 500)), Quaternion.identity);
                 disk.transform.parent = disks;
             }
 
-            if (AIs.childCount < 100)
+            if (AIs.childCount < AI_NUM)
             {
                 var ai = (GameObject)GameObject.Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0, Random.Range(0, 450)), Quaternion.Euler(0, Random.Range(0, 360), 0));
                 ai.GetComponent<AIController>().name = "AI" + ai_id.ToString();
@@ -64,10 +66,12 @@ public class GameEngine : MonoBehaviour {
     private void UpdateLeaderBoard()
     {
         foreach (Transform ai in AIs)
-            scores[ai.name] = ai.GetComponent<AIController>().score;
-        var playerScore = player.GetComponent<PlayerController>().score;
+            if (ai.GetComponent<AIController>() != null)
+                scores[ai.name] = ai.GetComponent<AIController>().Score;
+            else
+                scores.Remove(ai.name);
+        var playerScore = player.GetComponent<PlayerController>().Score;
         scores[playerName] = playerScore;
-
         var scoresList = scores.ToList();
         scoresList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
 

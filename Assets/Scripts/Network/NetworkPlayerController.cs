@@ -1,15 +1,33 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Networking;
 
-public class NetworkPlayerController : NetworkBehaviour {
+public class NetworkPlayerController : NetworkBehaviour, ICharacterController {
 
     public GameObject cameraPrefab;
-
-
+    
     [SyncVar]
     public int score = 0;
-	
-	// Update is called once per frame
+
+    private Color color;
+
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+    }
+
+    public Color Color
+    {
+        get
+        {
+            return color;
+        }
+    }
+
+    // Update is called once per frame
 
     void Update()
     {

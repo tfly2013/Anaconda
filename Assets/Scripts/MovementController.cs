@@ -22,10 +22,7 @@ public class MovementController : MonoBehaviour {
         var targetRotation = Quaternion.AngleAxis(angle, Vector3.up);
 
         for (int i = transform.childCount - 1; i > 0; i--)
-        {
-            transform.GetChild(i).position = Vector3.MoveTowards(transform.GetChild(i).position, transform.GetChild(i - 1).position, moveSpeed * Time.deltaTime);
-            
-        }
+            transform.GetChild(i).position = Vector3.MoveTowards(transform.GetChild(i - 1).position, transform.GetChild(i).position, 0.3f);
         transform.GetChild(0).rotation = Quaternion.RotateTowards(transform.GetChild(0).rotation, targetRotation, rotationSpeed * Time.deltaTime);
         transform.GetChild(0).position += transform.GetChild(0).forward * Time.deltaTime * moveSpeed;
 

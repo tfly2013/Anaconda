@@ -2147,7 +2147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1775519952}
   diskPrefab: {fileID: 151472, guid: 3e28c3a1f7be04647b74ea7e0e759caf, type: 2}
-  aiPrefab: {fileID: 1000014048420350, guid: b9e74077d3f6616428898a233d2a2edc, type: 2}
+  aiPrefab: {fileID: 1000012546324984, guid: b9e74077d3f6616428898a233d2a2edc, type: 2}
 --- !u!4 &1605736437
 Transform:
   m_ObjectHideFlags: 0
@@ -2521,8 +2521,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Player
-  length: 10
-  score: 0
   snakeBodyPrefeb: {fileID: 1000012239210474, guid: 678579ef300f29d4484eb361afc8f633,
     type: 2}
 --- !u!114 &1775519955
