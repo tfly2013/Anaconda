@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour, ICharacterController {
         for (int i = 0; i < length; i++)
         {
             var body = (GameObject)Instantiate(snakeBodyPrefeb, transform, false);
-            body.transform.localPosition = new Vector3(0, 0, -i - 0.3f);
+            body.transform.localPosition = new Vector3(0, 0, -i * 0.3f);
         }
         foreach (Transform child in transform)
             child.GetComponent<MeshRenderer>().material.color = color;
@@ -61,5 +61,8 @@ public class PlayerController : MonoBehaviour, ICharacterController {
             body.GetComponent<MeshRenderer>().material.color = color;
             body.transform.position = lastBodyPosistion;
         }
+        var width = 1.5f + 0.1f * Score / 100;
+        foreach (Transform child in transform)
+            child.transform.localScale = new Vector3(width, width, width);
     }
 }

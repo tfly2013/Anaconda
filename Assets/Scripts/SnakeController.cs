@@ -18,11 +18,21 @@ public class SnakeController : MonoBehaviour
             Destroy(other.gameObject);
         }
         if (other.gameObject.CompareTag("Body") && !other.transform.IsChildOf(transform.parent))
+            Dead();
+        if (other.gameObject.CompareTag("Head"))
         {
-            if (isPlayer && !isNetwork)
-                GameObject.Find("GameEngine").GetComponent<GameEngine>().GameOver();
-            Destroy(transform.parent.gameObject);
+            var score = controller.Score;
+            var otherScore = ((ICharacterController)other.gameObject.GetComponentInParent(typeof(ICharacterController))).Score;
+            if (score < otherScore)
+                Dead();
         }
+    }
+
+    private void Dead()
+    {
+        Destroy(transform.parent.gameObject);
+        if (isPlayer && !isNetwork)
+            GameObject.Find("GameEngine").GetComponent<GameEngine>().GameOver();        
     }
 
     private void InitalizeController()

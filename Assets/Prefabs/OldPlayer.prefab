@@ -13,7 +13,7 @@ GameObject:
   - 114: {fileID: 11494654}
   - 114: {fileID: 114000013127754332}
   m_Layer: 0
-  m_Name: Player
+  m_Name: OldPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,22 +155,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 76
-    i1: 39
-    i2: 66
-    i3: 204
-    i4: 214
-    i5: 80
-    i6: 141
-    i7: 180
-    i8: 73
-    i9: 156
-    i10: 35
-    i11: 170
-    i12: 113
-    i13: 53
-    i14: 85
-    i15: 143
+    i0: 230
+    i1: 135
+    i2: 12
+    i3: 240
+    i4: 102
+    i5: 105
+    i6: 91
+    i7: 20
+    i8: 122
+    i9: 36
+    i10: 142
+    i11: 45
+    i12: 4
+    i13: 83
+    i14: 26
+    i15: 48
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
 --- !u!114 &11494654
@@ -229,4 +229,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  rotataSpeed: 150
+  rotationSpeed: 120
