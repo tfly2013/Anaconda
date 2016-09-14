@@ -1,10 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 public class NetworkPlayerController : NetworkBehaviour, ICharacterController {
 
-    public string playerName = "Player";
     public GameObject snakeBodyPrefeb;
     public GameObject cameraPrefab;
 
@@ -31,7 +29,10 @@ public class NetworkPlayerController : NetworkBehaviour, ICharacterController {
 
     public void Start()
     {
-        transform.SetParent(GameObject.Find("Players").transform);
+        name = "Player";
+        if (isServer)
+            name = "Player" + Random.Range(0, 10000);
+        //transform.SetParent(GameObject.Find("Players").transform);        
     }
 
     // Update is called once per frame
@@ -44,7 +45,7 @@ public class NetworkPlayerController : NetworkBehaviour, ICharacterController {
         GetComponent<MovementController>().move();
         var headPosition = transform.GetChild(0).position;
         if (headPosition.x < 0 || headPosition.x > 500 || headPosition.z < 0 || headPosition.z > 500)
-            GameObject.Find("GameEngine").GetComponent<GameEngine>().GameOver();
+            Debug.Log("Game Over");
     }
 
     public override void OnStartLocalPlayer()
@@ -56,6 +57,8 @@ public class NetworkPlayerController : NetworkBehaviour, ICharacterController {
         {
             var body = (GameObject)Instantiate(snakeBodyPrefeb, transform, false);
             body.transform.localPosition = new Vector3(0, 0, -i * 0.3f);
+            //var netTrans = gameObject.AddComponent<NetworkTransformChild>();
+            //netTrans.target = body.transform;
         }
         foreach (Transform child in transform)
             child.GetComponent<MeshRenderer>().material.color = color;
@@ -80,6 +83,8 @@ public class NetworkPlayerController : NetworkBehaviour, ICharacterController {
             var body = (GameObject)Instantiate(snakeBodyPrefeb, transform, false);
             body.GetComponent<MeshRenderer>().material.color = color;
             body.transform.position = lastBodyPosistion;
+            //var netTrans = gameObject.AddComponent<NetworkTransformChild>();
+            //netTrans.target = body.transform;
         }
         var width = 1.5f + 0.1f * Score / 100;
         foreach (Transform child in transform)

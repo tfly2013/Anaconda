@@ -39,7 +39,7 @@ public class NetworkGameEngine : NetworkBehaviour
             disk.transform.parent = disks;
             NetworkServer.Spawn(disk);
         }
-        UpdateScores();        
+        UpdateScores();    
     }
 
     private void UpdateScores()
@@ -51,20 +51,29 @@ public class NetworkGameEngine : NetworkBehaviour
                 scores.Remove(p.name);
         var scoresList = scores.ToList();
         scoresList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
-        //RpcUpdateLeaderboard(scoresList);
+        var topList = scoresList.Take(10).ToList();
+        int topCount = topList.Count;
+        string[] topNames = new string[10];
+        int[] topScores = new int[10];
+        for (int i = 0; i < topList.Count; i++)
+        {
+            topNames[i] = topList[i].Key;
+            topScores[i] = topList[i].Value;
+        }
+        RpcUpdateLeaderboard(topCount, topNames, topScores);
     }
 
     [ClientRpc]
-    public void RpcUpdateLeaderboard(List<KeyValuePair<string, int>> scoresList)
+    public void RpcUpdateLeaderboard(int topCount, string[] topNames, int[] topScores)
     {
-        if (isLocalPlayer)
+        if (isClient)
         {
             var leaderBoard = GameObject.Find("LeaderBoard").transform;
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < topCount; i++)
             {
-                var name = scoresList[i].Key;
+                var name = topNames[i];
                 leaderBoard.GetChild(i).GetChild(0).GetComponent<Text>().text = (i + 1).ToString() + ". " + name;
-                leaderBoard.GetChild(i).GetChild(1).GetComponent<Text>().text = scoresList[i].Value.ToString();
+                leaderBoard.GetChild(i).GetChild(1).GetComponent<Text>().text = topScores[i].ToString();
             }
         }
     }

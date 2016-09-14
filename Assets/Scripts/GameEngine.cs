@@ -76,25 +76,12 @@ public class GameEngine : MonoBehaviour {
         scoresList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
 
         var leaderBoard = GameObject.Find("LeaderBoard").transform;
-        var playerInLead = false;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             var name = scoresList[i].Key;
-            if (!playerInLead && name == playerName)
-                playerInLead = true;
             leaderBoard.GetChild(i).GetChild(0).GetComponent<Text>().text = (i + 1).ToString() + ". " + name;
             leaderBoard.GetChild(i).GetChild(1).GetComponent<Text>().text = scoresList[i].Value.ToString();
         }
-        if (playerInLead)
-        {
-            leaderBoard.GetChild(5).GetChild(0).GetComponent<Text>().text = "6. " + scoresList[6].Key;
-            leaderBoard.GetChild(5).GetChild(1).GetComponent<Text>().text = scoresList[6].Value.ToString();
-        }
-        else
-        {
-            leaderBoard.GetChild(5).GetChild(0).GetComponent<Text>().text = "   " + playerName;
-            leaderBoard.GetChild(5).GetChild(1).GetComponent<Text>().text = playerScore.ToString();
-        }        
     }
 
     public void GameOver()

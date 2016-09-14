@@ -74,11 +74,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012621025924}
   - 114: {fileID: 114000011862209756}
-  - 114: {fileID: 114000011052048084}
   - 114: {fileID: 114000012307523636}
   - 114: {fileID: 114000013345608686}
+  - 114: {fileID: 114000012437474882}
+  - 114: {fileID: 114000011454789098}
   m_Layer: 0
-  m_Name: Player
+  m_Name: NetworkPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,7 +401,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114000011052048084
+--- !u!114 &114000011454789098
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -408,18 +409,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013518254898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: -1267208747, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
+  m_Target: {fileID: 4000010349452696}
+  m_ChildIndex: 0
   m_SendInterval: 0.1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
 --- !u!114 &114000011862209756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -463,12 +463,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df16e3e65e91c0e4192638a1716d32d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Player
   snakeBodyPrefeb: {fileID: 1000012239210474, guid: 678579ef300f29d4484eb361afc8f633,
     type: 2}
   cameraPrefab: {fileID: 189550, guid: 2adbf96241398c341ace3016bd1b1d7d, type: 2}
-  length: 10
   score: 0
+--- !u!114 &114000012437474882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013518254898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114000013345608686
 MonoBehaviour:
   m_ObjectHideFlags: 1

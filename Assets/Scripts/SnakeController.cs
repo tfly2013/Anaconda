@@ -13,7 +13,11 @@ public class SnakeController : MonoBehaviour
             InitalizeController();
         if (other.gameObject.CompareTag("Disk"))
         {
-            var score = other.gameObject.GetComponent<DiskController>().score;
+            int score;
+            if (!isNetwork)
+                score = other.gameObject.GetComponent<DiskController>().score;
+            else
+                score = other.gameObject.GetComponent<NetworkDiskController>().score;
             controller.AddScore(score);
             Destroy(other.gameObject);
         }
