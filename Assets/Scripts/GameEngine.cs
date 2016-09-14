@@ -26,14 +26,14 @@ public class GameEngine : MonoBehaviour {
         disks = GameObject.Find("Disks").transform;
         for (int i = 0; i < DISK_NUM; i++)
         {
-            var disk = (GameObject)GameObject.Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0, Random.Range(0, 500)), Quaternion.identity);
+            var disk = (GameObject)Instantiate(diskPrefab, new Vector3(Random.Range(0, 500), 0, Random.Range(0, 500)), Quaternion.identity);
             disk.transform.parent = disks;
         }
 
         AIs = GameObject.Find("AIs").transform;
         for (int i = 0; i < AI_NUM; i++)
         {
-            var ai = (GameObject)GameObject.Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0, Random.Range(0, 450)), Quaternion.Euler(0, Random.Range(0,360), 0));
+            var ai = (GameObject)Instantiate(aiPrefab, new Vector3(Random.Range(0, 450), 0, Random.Range(0, 450)), Quaternion.Euler(0, Random.Range(0,360), 0));
             
             ai.GetComponent<AIController>().name = "AI" + i.ToString();
             ai.transform.parent = AIs;

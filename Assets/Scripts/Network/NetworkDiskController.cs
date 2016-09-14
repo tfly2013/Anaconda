@@ -1,26 +1,27 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Networking;
 
-public class DiskController : MonoBehaviour {
+public class NetworkDiskController : NetworkBehaviour {
 
     public int score;
     public float scale;
     public Color color;
 
-    private Color[] colors = { Color.red, Color.yellow, Color.blue, Color.green, Color.black, Color.white, Color.cyan, Color.magenta};
+    private Color[] colors = { Color.red, Color.yellow, Color.blue, Color.green, Color.black, Color.white, Color.cyan, Color.magenta };
 
-    void Start () {        
+    void Start () {
+        transform.SetParent(GameObject.Find("Disks").transform);
         var rvalue = Random.value;
         if (rvalue > 0.93)
         {
             score = 16;
             scale = 1.5f;
-        }            
+        }
         else if (rvalue > 0.8)
         {
             score = 8;
             scale = 1.3f;
-        }            
+        }
         else if (rvalue > 0.6)
         {
             score = 4;
@@ -41,4 +42,6 @@ public class DiskController : MonoBehaviour {
         color.a = 0.7f;
         GetComponent<MeshRenderer>().material.color = color;
     }
+
+
 }

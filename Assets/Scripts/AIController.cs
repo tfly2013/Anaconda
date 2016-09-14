@@ -7,7 +7,6 @@ public class AIController : MonoBehaviour, ICharacterController {
     public float rotationSpeed = 120;
 
     private int score = 0;
-    private int length = 10;
     private Color color;
     private Color[] colors = { Color.red, Color.yellow, Color.blue, Color.green, Color.black, Color.white, Color.cyan, Color.magenta };
 
@@ -30,7 +29,7 @@ public class AIController : MonoBehaviour, ICharacterController {
     // Use this for initialization
     void Start () {
         color = colors[(int)Random.Range(0, colors.Length - 1)];
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < 10; i++)
         {
             var body = (GameObject)Instantiate(snakeBodyPrefeb, transform, false);
             body.transform.localPosition = new Vector3(0, 0, -i * 0.3f);
@@ -62,10 +61,9 @@ public class AIController : MonoBehaviour, ICharacterController {
 
     private void UpdateSize()
     {
-        while (score / 10 > (length - 9))
+        while (score / 10 > (transform.childCount - 10))
         {
             var lastBodyPosistion = transform.GetChild(transform.childCount - 1).position;
-            length++;
             var body = (GameObject)Instantiate(snakeBodyPrefeb, transform, false);
             body.GetComponent<MeshRenderer>().material.color = color;
             body.transform.position = lastBodyPosistion;

@@ -9,8 +9,6 @@ public class MovementController : MonoBehaviour {
 
     public void move()
     {
-        //transform.position += transform.forward * Time.deltaTime * moveSpeed;
-
         Vector2 inputPos;
         if (Input.touchCount > 0)
             inputPos = Input.touches[0].position;
